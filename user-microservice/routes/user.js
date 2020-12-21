@@ -53,6 +53,9 @@ router.get("/verify", function (req, res, next) {
 });
 
 router.post("/login", function (req, res, next) {
+  const fromIp = req.connection.localAddress;
+  console.log("log in req from user at ip: ", fromIp);
+
   User.findOne({ name: req.body.name }, (err, user) => {
     console.log("login attempt: ", req.body.name, user);
     if (user === null) {

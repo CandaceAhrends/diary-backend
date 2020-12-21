@@ -1,7 +1,7 @@
 require("dotenv").config();
 
 const loginAttempts = [];
-const EXP_TIME = process.env.LOGIN_REATTEMPT_AFTER_X_HOURS * 60 * 1000;
+const EXP_TIME = process.env.LOGIN_REATTEMPT_AFTER_X_SECONDS * 1000;
 
 function createAttempt(cnt) {
   return {
