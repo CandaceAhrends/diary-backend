@@ -56,7 +56,7 @@ router.post("/login", function (req, res, next) {
   const fromIp = req.connection.localAddress;
 
   const allowLogin = loginMonitor.attemptLogin(fromIp);
-  console.log("log in req from user at ip allowed ", allowLogin, fromIp);
+  console.log("log in req from user at ip allowed =  "+ allowLogin,  fromIp);
   if (!allowLogin) {
     return res.status(200).send({
       message: "Too many login attempts",
