@@ -1,0 +1,26 @@
+const express = require("express");
+const bodyParser = require("body-parser");
+const cors = require("cors");
+require("dotenv").config();
+
+const db = require("./db");
+
+const app = express();
+
+
+app.use(
+  cors({
+    origin: ["http://candaceahrends.com", "http://localhost:9000"],
+    allowedHeaders: ["Authorization", "Content-Type"],
+    exposedHeaders: ["Authorization"],
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  })
+);
+app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.json());
+
+app.use(require("./routes"));
+
+const server = app.listen(process.env.PORT || 3000, function () {
+  console.log("Listening on port " + server.address().port);
+});
