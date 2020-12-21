@@ -54,38 +54,41 @@ router.get("/verify", function (req, res, next) {
 
 router.post("/login", function (req, res, next) {
   const fromIp = req.connection.localAddress;
-  console.log("log in req from user at ip: ", fromIp);
 
-  User.findOne({ name: req.body.name }, (err, user) => {
-    console.log("login attempt: ", req.body.name, user);
-    if (user === null) {
-      return res.status(200).send({
-        message: "User not found.",
-      });
-    } else {
-      const allowLogin = loginMonitor.attemptLogin(req.body.name);
-      if (!allowLogin) {
+  const allowLogin = loginMonitor.attemptLogin(fromIp);
+  console.log("log in req from user at ip allowed ", allowLogin, fromIp);
+  if (!allowLogin) {
+    return res.status(200).send({
+      message: "Too many login attempts",
+    });
+  } else {
+    User.findOne({ name: req.body.name }, (err, user) => {
+      console.log("login attempt: ", req.body.name, user);
+      if (user === null) {
         return res.status(200).send({
-          message: "Too many login attempts",
+          message: "User not found.",
         });
-      }
-      if (user.validPassword(req.body.pwd)) {
-        const token = generateToken(req.body.name);
-
-        res.setHeader("Authorization", "Bearer " + token);
-        return res.status(201).send({
-          message: "User Logged In",
-          success: true
-        });
-
       } else {
-        return res.status(400).send({
-          message: "User not Logged In",
-          success: false
-        });
+
+        if (user.validPassword(req.body.pwd)) {
+          const token = generateToken(req.body.name);
+
+          res.setHeader("Authorization", "Bearer " + token);
+          return res.status(201).send({
+            message: "User Logged In",
+            success: true
+          });
+
+        } else {
+          return res.status(400).send({
+            message: "User not Logged In",
+            success: false
+          });
+        }
       }
-    }
-  });
+    });
+  }
+
 });
 
 function generateToken(user) {
