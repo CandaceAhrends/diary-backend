@@ -24,7 +24,7 @@ const createPageRequests = (res, query) => {
     (x, idx) => idx + 2
   );
 
-  const pageRequests = pages.slice(0,5).map((page) => {
+  const pageRequests = pages.slice(0,3).map((page) => {
     return [`page${page}`, getFood(query, page)];
   });
   const firstPage = {
