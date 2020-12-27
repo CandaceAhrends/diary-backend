@@ -2,7 +2,7 @@ require("dotenv").config();
 const flatMap = require('array.prototype.flatmap');
 
 const foodLookupUrl = (query, pageNumber) =>
-  `https://api.nal.usda.gov/fdc/v1/foods/search?query='${query}'&pageNumber=${pageNumber}&dataType=Branded,Survey%20(FNDDS)&api_key=${process.env.USDA_API_KEY}`;
+  `https://api.nal.usda.gov/fdc/v1/foods/search?query='${query}'&pageSize=100&pageNumber=${pageNumber}&dataType=Branded,Survey%20(FNDDS)&api_key=${process.env.USDA_API_KEY}`;
 
 const foodDetailUrl = foodId => `https://api.nal.usda.gov/fdc/v1/food/${foodId}?api_key=${process.env.USDA_API_KEY}`;
 
