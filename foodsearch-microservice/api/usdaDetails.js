@@ -4,8 +4,9 @@ const RxOp = require('rxjs/operators');
 const nutrition = require('./nutrition');
 const flatMap = require('array.prototype.flatmap');
 const fromEntries = require('object.fromentries');
-const NURIENT_IDS = [1008,1003, 1185, 1114, 1004, 2039, 1079, 1087, 1089, 1098, 1090, 1091, 1092, 1093, 1095, 1098, 1101, 1103, 1162, 1165,
-    1166, 1175, 1177, 1186, 1178, 1104, 1110, 1258, 1292, 1293, 1004, 1162, 1057];
+const NURIENT_IDS = [1005,1004, 1008,1003, 1185, 1114, 1109,1166,1167,1186,1242,1246,1253,
+      2039, 1079, 1087, 1089, 1098, 1090, 1091, 1092, 1093, 1095, 1106, 1098, 1101, 1103, 1162, 1165,
+    1166, 1175, 1177, 1186, 1178, 1104, 1110, 1258, 1292, 1293,  1162, 1057, 2000];
 
 const getFoodDetails = (foodId = 0) => {
     const numericRegEx = /^\d+$/;

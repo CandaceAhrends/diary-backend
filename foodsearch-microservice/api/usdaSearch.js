@@ -61,10 +61,7 @@ const transformFoodList = (foodList) => {
 
       return {
         description: val.description,
-        id: val.fdcId,
-        cal: nutrition.findCalories(val.foodNutrients),
-        nutrition: nutrition.extractNutrients(val.foodNutrients),
-        popularNutrition: nutrition.extractPopularNutrients(val.foodNutrients)
+        id: val.fdcId
       };
     })
     .filter((v) => v);
