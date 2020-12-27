@@ -8,11 +8,14 @@ let fatSecretToken = null;
 
 router.post("/create", function (req, res, next) {
   const pwd = req.body.pwd;
+  console.log("got pwd from body ->", pwd);
 
   let user = new User();
   user.name = req.body.name;
-
-  user.encryptPassword(req.body.pwd);
+  if (!user.name || !pwd) {
+    return res.status(400).send({ message: 'invalud user or pwd' });
+  }
+  user.encryptPassword(pwd);
   error = user.validateSync();
   if (error) {
     return res.status(400).send({
@@ -56,7 +59,7 @@ router.post("/login", function (req, res, next) {
   const fromIp = req.connection.localAddress;
 
   const allowLogin = loginMonitor.attemptLogin(req.body.name);
-  console.log("log in req from user  allowed =  "+ allowLogin,  req.body.name, fromIp);
+  console.log("log in req from user  allowed =  " + allowLogin, req.body.name, fromIp);
   if (!allowLogin) {
     return res.status(200).send({
       message: "Too many login attempts",
