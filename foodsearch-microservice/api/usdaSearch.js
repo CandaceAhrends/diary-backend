@@ -37,6 +37,7 @@ const createPageRequests = (res, query) => {
   const observableList =
     res.totalPages > 1
       ? {
+        page1: Rx.of(firstPage),
         ...Object.fromEntries(pageRequests),
       }
       : { page2: Rx.of(emptyPage) };
