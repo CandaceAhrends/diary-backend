@@ -50,12 +50,12 @@ const createPageRequests = (res, query) => {
 }
 
 const transformFoodList = (foodList, query) => {
- 
+
   const data = foodList.reduce((nonDuplicates, food) => {
-    if (food.description.includes(query)){
+    if (food.description.slice(0, query.length * 3).toUpperCase().includes(query.toUpperCase())) {
       nonDuplicates.set(food.description, food);
     }
-    else{
+    else {
       console.log("removing extra stuff ", food.description);
     }
     return nonDuplicates;
