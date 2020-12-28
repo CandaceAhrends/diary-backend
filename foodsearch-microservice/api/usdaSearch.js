@@ -49,10 +49,10 @@ const createPageRequests = (res, query) => {
   return observable;
 }
 
-const transformFoodList = (data) => {
-  const query = data.query;
+const transformFoodList = (foodData) => {
+  const query = foodData.query;
   console.log("query was: ", query);
-  const data = data.foodList.reduce((nonDuplicates, food) => {
+  const data = foodData.foodList.reduce((nonDuplicates, food) => {
     if (food.description.includes(query)) {
 
 
