@@ -24,7 +24,7 @@ const createPageRequests = (res, query) => {
     (x, idx) => idx + 2
   );
 
-  const pageRequests = pages.slice(0,1).map((page) => {
+  const pageRequests = pages.slice(0, 1).map((page) => {
     return [`page${page}`, getFood(query, page)];
   });
   const firstPage = {
@@ -33,7 +33,7 @@ const createPageRequests = (res, query) => {
   const emptyPage = {
     data: { foods: [] },
   };
-	fromEntries.shim();
+  fromEntries.shim();
   const observableList =
     res.totalPages > 1
       ? {
@@ -49,16 +49,21 @@ const createPageRequests = (res, query) => {
   return observable;
 }
 
-const transformFoodList = (foodList) => {
+const transformFoodList = (data) => {
+  const query = data.query;
+  console.log("query was: ", query);
+  const data = data.foodList.reduce((nonDuplicates, food) => {
+    if (food.description.includes(query)) {
 
-  const data = foodList.reduce((nonDuplicates, food) => {
-    nonDuplicates.set(food.description, food);
+
+      nonDuplicates.set(food.description, food);
+    }
     return nonDuplicates;
   }, new Map());
 
   return Array.from(data.entries())
     .map(([key, val]) => {
-      
+
 
       return {
         description: val.description,
@@ -89,14 +94,25 @@ const foodLookup = (query) => {
       return Object.values(data)
         .map((entry) => entry.data)
         .filter((data) => data)
-        .map((data) => data.foods);
+        .map((data) => {
+          console.log("data from map", data);
+          return {
+            query: data.foodSearchCriteria.query,
+            foods: data.foods
+          }
+        })
     }),
     RxOp.map((allPages) => {
-      return flatMap(allPages,(data) => data);
-    }),
-    RxOp.map((foodList) => { 
+      console.log("data from allPages", allPages);
+      return {
+        foodList: flatMap(allPages.foods, (data) => data),
+        query: allPages.query
+      }
 
-      const transformedList =  transformFoodList(foodList); 
+    }),
+    RxOp.map((pageData) => {
+      console.log("data from pageData", pageData);
+      const transformedList = transformFoodList(pageData);
       return transformedList;
     }),
     RxOp.catchError(err => {
