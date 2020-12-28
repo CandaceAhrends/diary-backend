@@ -20,7 +20,11 @@ router.get("/remove", async function (req, res, next) {
 router.get("/list", async function (req, res, next) {
 
   const diary = await FoodItem.find({ date: req.query.date, userId: req.query.userId }).exec();
-
+  if (!diary) {
+    return res.status(400).send({
+      message: err,
+    });
+  }
   const results = diary.map(foodItem => ({
     foodId: foodItem.lookupId,    
     qty: foodItem.qty,
