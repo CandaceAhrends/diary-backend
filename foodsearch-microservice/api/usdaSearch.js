@@ -94,24 +94,9 @@ const foodLookup = (query) => {
     RxOp.map((allPages) => {
       return flatMap(allPages,(data) => data);
     }),
-    RxOp.map((foodList) => {
-   
+    RxOp.map((foodList) => { 
 
-      const beforeTransform = foodList.map(( food) => {
-        return food.description;
-      });
-      console.log("final results are:    ", beforeTransform)
-
-
-      const transformedList =  transformFoodList(foodList);
-      
-      const afterTransform = transformedList.map(( food) => {
-        return food.description;
-      });
-      console.log("final after transform are:    ", afterTransform)
-
-
-
+      const transformedList =  transformFoodList(foodList); 
       return transformedList;
     }),
     RxOp.catchError(err => {
