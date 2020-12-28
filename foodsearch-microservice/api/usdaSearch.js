@@ -52,7 +52,7 @@ const createPageRequests = (res, query) => {
 const transformFoodList = (foodList, query) => {
 
   const data = foodList.reduce((nonDuplicates, food) => {
-    if (food.description.slice(0, query.length * 3).toUpperCase().includes(query.toUpperCase())) {
+    if (food.description.slice(0, query.length  + 15 ).toUpperCase().includes(query.toUpperCase())) {
       nonDuplicates.set(food.description, food);
     }
     else {
