@@ -10,7 +10,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: ["http://candaceahrends.com", "http://localhost:9000"],
+    origin: ["http://candaceahrends.com", "http://localhost:9000", "https://candaceahrends.github.io"],
     allowedHeaders: ["Authorization", "Content-Type"],
     exposedHeaders: ["Authorization"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

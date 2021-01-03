@@ -5,9 +5,12 @@ const foodDetailLookup = require("../api/usdaDetails");
 
 require("dotenv").config();
 
+const MAX_LEN = 25;
+const QUEURY_REG_EX =  /^[a-zA-Z0-9_.-\s']+$/;
+
 router.get("/search", async function (req, res, next) {
   const searchQuery = decodeURIComponent(req.query.query);
-  const isValid = /^[a-zA-Z0-9_.-\s']+$/.test(searchQuery);
+  const isValid = QUEURY_REG_EX.test(searchQuery) && searchQuery.length <= MAX_LEN;
 
   if (isValid) {
     console.log("Search Query =>", searchQuery);
