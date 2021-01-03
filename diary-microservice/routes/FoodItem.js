@@ -29,7 +29,8 @@ router.get("/list", async function (req, res, next) {
     foodId: foodItem.lookupId,    
     qty: foodItem.qty,
     type: foodItem.databaseType,
-    portion: foodItem.foodPortion
+    portion: foodItem.foodPortion,
+    details: foodItem.foodDetails
     
 
   }));
@@ -41,7 +42,7 @@ router.get("/list", async function (req, res, next) {
 
 
 router.post("/save", async function (req, res, next) {
-  const { id, date, userId, qty, type, portion} = req.body.foodItem;
+  const { id, date, userId, qty, type, portion, details} = req.body.foodItem;
 console.log("databse getting id ", id,date, userId, type);
   let foodItem = {
     id: `${id}-${date}`,
@@ -50,7 +51,8 @@ console.log("databse getting id ", id,date, userId, type);
     hour: moment().format('HH'),    
     databaseType: type,
     lookupId: id,
-    foodPortion: portion    
+    foodPortion: portion  ,
+    foodDetails: details  
   };
 
   console.log(foodItem);

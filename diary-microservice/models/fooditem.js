@@ -16,7 +16,8 @@ const FoodSchema = mongoose.Schema({
   hour: Number,
   dateFormat: String,
   userId: String,
-  foodPortion: String
+  foodPortion: String,
+  foodDetails: String
 });
 
 

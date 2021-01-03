@@ -1,2 +1,4 @@
 node_modules/
 
+user-microservice/.env
+diary-microservice/package-lock.json
