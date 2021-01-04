@@ -51,15 +51,15 @@ const createPageRequests = (res, query) => {
 
 const transformFoodList = (foodList, query) => {
 
-  // const data = foodList.reduce((nonDuplicates, food) => {
-  //   if (food.description.slice(0, query.length  + 15 ).toUpperCase().includes(query.toUpperCase())) {
-  //     nonDuplicates.set(food.description, food);
-  //   }
-  //   else {
-  //     console.log("removing extra stuff ", food.description);
-  //   }
-  //   return nonDuplicates;
-  // }, new Map());
+  const data = foodList.reduce((nonDuplicates, food) => {
+    //if (food.description.slice(0, query.length  + 15 ).toUpperCase().includes(query.toUpperCase())) {
+    nonDuplicates.set(food.description, food);
+    // }
+    // else {
+    //console.log("removing extra stuff ", food.description);
+    //}
+    return nonDuplicates;
+  }, new Map());
 
   return Array.from(data.entries())
     .map(([key, val]) => {
