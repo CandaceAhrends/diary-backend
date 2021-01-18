@@ -6,6 +6,8 @@ const SAVE_DATE_FORMAT = 'MMDDYYYY';
 
 
 router.post("/save", async function (req, res, next) {
+    console.log("req body", req.body);
+
     const { id, date, userId, qty, action, cal } = req.body.activity;
     console.log("databse getting id ", id, date, userId, action);
     let activityItem = {

@@ -5,9 +5,9 @@ require("dotenv").config();
 const SAVE_DATE_FORMAT = 'MMDDYYYY';
 
 router.get("/remove", async function (req, res, next) {
- 
+
   const removedAll = await FoodItem.deleteMany({
-    date: req.query.date, userId: req.query.userId 
+    date: req.query.date, userId: req.query.userId
   }).exec();
 
   return res.status(200).send({
@@ -26,12 +26,12 @@ router.get("/list", async function (req, res, next) {
     });
   }
   const results = diary.map(foodItem => ({
-    foodId: foodItem.lookupId,    
+    foodId: foodItem.lookupId,
     qty: foodItem.qty,
     type: foodItem.databaseType,
     portion: foodItem.foodPortion,
     details: foodItem.foodDetails
-    
+
 
   }));
 
@@ -42,17 +42,18 @@ router.get("/list", async function (req, res, next) {
 
 
 router.post("/save", async function (req, res, next) {
-  const { id, date, userId, qty, type, portion, details} = req.body.foodItem;
-console.log("databse getting id ", id,date, userId, type);
+
+  const { id, date, userId, qty, type, portion, details } = req.body.foodItem;
+  console.log("databse getting id ", id, date, userId, type);
   let foodItem = {
     id: `${id}-${date}`,
-    userId: userId,    
+    userId: userId,
     date: date,
-    hour: moment().format('HH'),    
+    hour: moment().format('HH'),
     databaseType: type,
     lookupId: id,
-    foodPortion: portion  ,
-    foodDetails: details  
+    foodPortion: portion,
+    foodDetails: details
   };
 
   console.log(foodItem);
