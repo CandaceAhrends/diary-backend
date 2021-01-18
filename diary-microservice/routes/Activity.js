@@ -11,7 +11,7 @@ router.post("/save", async function (req, res, next) {
     const { id, date, userId, qty, action, cal } = req.body.activity;
     console.log("databse getting id ", id, date, userId, action);
     let activityItem = {
-        id: `${id}-${date}`,
+        id: `${id}-${date}-${userId}`,
         userId: userId,
         date: date,
         hour: moment().format('HH'),
