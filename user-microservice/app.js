@@ -7,10 +7,13 @@ const db = require("./db");
 
 const app = express();
 
-
 app.use(
   cors({
-    origin: ["http://candaceahrends.com", "http://localhost:9000", "https://candaceahrends.github.io"],
+    origin: [
+      "http://candaceahrends.com",
+      "http://localhost:8080",
+      "https://candaceahrends.github.io",
+    ],
     allowedHeaders: ["Authorization", "Content-Type"],
     exposedHeaders: ["Authorization"],
     methods: "GET,HEAD,PUT,PATCH,POST,DELETE",

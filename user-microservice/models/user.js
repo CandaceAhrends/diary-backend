@@ -4,7 +4,7 @@ require("dotenv").config();
 
 var Schema = mongoose.Schema;
 const UserSchema = mongoose.Schema({
-  name: {
+  login: {
     type: String,
     unique: true,
     required: true,
@@ -26,7 +26,6 @@ const UserSchema = mongoose.Schema({
   },
   hash: String,
   salt: String,
-  authorizations: [String],
 });
 
 UserSchema.methods.encryptPassword = function (pwd) {
@@ -42,4 +41,4 @@ UserSchema.methods.validPassword = function (pwd) {
 function generateHash(pwd, salt) {
   return crypto.pbkdf2Sync(pwd, salt, 1000, 512, `sha512`).toString(`hex`);
 }
-const User = (module.exports = mongoose.model("User", UserSchema));
+const User = (module.exports = mongoose.model("dietapp_appuser", UserSchema));

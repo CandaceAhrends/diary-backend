@@ -11,9 +11,9 @@ router.post("/create", function (req, res, next) {
   console.log("got pwd from body ->", pwd);
 
   let user = new User();
-  user.name = req.body.name;
-  if (!user.name || !pwd) {
-    return res.status(400).send({ message: 'invalud user or pwd' });
+  user.login = req.body.name;
+  if (!user.login || !pwd) {
+    return res.status(400).send({ message: "invalud user or pwd" });
   }
   user.encryptPassword(pwd);
   error = user.validateSync();
@@ -21,7 +21,7 @@ router.post("/create", function (req, res, next) {
     return res.status(400).send({
       message: error,
     });
-  };
+  }
 
   user.save(function (err) {
     if (err) {
@@ -59,39 +59,40 @@ router.post("/login", function (req, res, next) {
   const fromIp = req.connection.localAddress;
 
   const allowLogin = loginMonitor.attemptLogin(req.body.name);
-  console.log("log in req from user  allowed =  " + allowLogin, req.body.name, fromIp);
+  console.log(
+    "log in req from user  allowed =  " + allowLogin,
+    req.body.name,
+    fromIp
+  );
   if (!allowLogin) {
     return res.status(200).send({
       message: "Too many login attempts",
     });
   } else {
-    User.findOne({ name: req.body.name }, (err, user) => {
+    User.findOne({ login: req.body.name }, (err, user) => {
       console.log("login attempt: ", req.body.name, user);
       if (user === null) {
         return res.status(200).send({
           message: "User not found.",
         });
       } else {
-
         if (user.validPassword(req.body.pwd)) {
           const token = generateToken(req.body.name);
 
           res.setHeader("Authorization", "Bearer " + token);
           return res.status(201).send({
             message: "User Logged In",
-            success: true
+            success: true,
           });
-
         } else {
           return res.status(400).send({
             message: "User not Logged In",
-            success: false
+            success: false,
           });
         }
       }
     });
   }
-
 });
 
 function generateToken(user) {
