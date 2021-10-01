@@ -12,7 +12,7 @@ app.use(
     origin: [
       "http://candaceahrends.com",
       "http://localhost:8080",
-      "http://localhost:3080",
+      "http://http://ec2-3-84-61-251.compute-1.amazonaws.com:3080",
       "https://candaceahrends.github.io",
     ],
     allowedHeaders: ["Authorization", "Content-Type"],
